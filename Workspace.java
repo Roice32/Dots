@@ -158,8 +158,8 @@ public class Workspace extends JFrame implements MouseListener, ActionListener
 		if(over==-1)
 		{
 			for(int i=0; i<=nodes.size(); i++) // Noul nod se adaugă în prima
-				if(!nodes.containsKey(i))      // cheie liberă (în urma unei ștergeri)
-				{							   // din HashMap, sau la finalul ei.
+				if(!nodes.containsKey(i))  // cheie liberă (în urma unei ștergeri)
+				{		           // din HashMap, sau la finalul ei.
 					nodes.put(i,new Node(x,y,getGraphics()));
 					break;
 				}
@@ -181,7 +181,7 @@ public class Workspace extends JFrame implements MouseListener, ActionListener
 			}
 			linkFirst=-1;
 			nodes.get(over).delete(getGraphics()); // Șterge nodul vizual.
-			nodes.remove(over);					   // Șterge nodul în memorie.
+			nodes.remove(over);		       // Șterge nodul în memorie.
 			redrawAll();
 			titleText.setText("Ștergere noduri");
 			act='e';
@@ -208,7 +208,7 @@ public class Workspace extends JFrame implements MouseListener, ActionListener
 				if(!duplicate)
 				{
 					for(int i=0; i<=roads.size(); i++) // Memorează muchia în prima cheie liberă din HashMap
-						if(!roads.containsKey(i))	   // (în urma unei ștergeri), sau la sfârșitul ei.
+						if(!roads.containsKey(i))  // (în urma unei ștergeri), sau la sfârșitul ei.
 						{
 							roads.put(i,new Road(nodes.get(linkFirst),nodes.get(over),getGraphics(), Color.BLUE));
 							break;
@@ -292,12 +292,11 @@ public class Workspace extends JFrame implements MouseListener, ActionListener
 				 }
 	}
 
-	// A* Pathfinding Algorithm pe graf neorientat.
-	// Din cauza căutării muchiilor ce conțin nodurilor, 
-	// complexitate O(n^3)...
+	// Dijkstra Pathfinding Algorithm pe graf neorientat.
+	// Din cauza căutării muchiilor ce conțin nodurile, complexitate O(n^3)...
 	public void pathFind(int s, int e)
 	{
-		int curr = 1; // Nodul curent. Inițializat cu 1 pentru a intra în buclă
+		int curr = 1; // Nodul curent. Inițializat cu 1 pentru a intra în buclă.
 		double minCost; // Pentru găsirea nodului deschis cu costul cel mai mic.
 		boolean found = false;
 		
@@ -311,7 +310,7 @@ public class Workspace extends JFrame implements MouseListener, ActionListener
 		nodes.get(s).status = 'o';
 		nodes.get(s).h = 0;
 		
-		while(!found && curr!=-1) // !!!
+		while(!found && curr!=-1) // Iterează cât timp nu am ajuns la final și pot merge într-un alt nod nevizitat.
 		{
 			curr = -1;
 			minCost = Double.MAX_VALUE;
@@ -335,7 +334,7 @@ public class Workspace extends JFrame implements MouseListener, ActionListener
 						if(r.start.equals(nodes.get(curr)) && r.end.equals(i.getValue()) ||
 						   r.end.equals(nodes.get(curr)) && r.start.equals(i.getValue()))
 							if(nodes.get(curr).h+r.cost<i.getValue().h) // Actualizează noii vecini disponibili ai nodului curent, și pe
-							{											// cei deja vizitați, dacă există drum mai scurt până la ei prin curr.
+							{					    // cei deja vizitați, dacă există drum mai scurt până la ei prin curr.
 								i.getValue().h = nodes.get(curr).h+r.cost;
 								i.getValue().parent = curr;
 								i.getValue().status = 'o';
